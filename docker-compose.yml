@@ -1,0 +1,119 @@
+version: "3.9"
+
+services:
+  db:
+    build: ./db
+    container_name: bfm-db
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: devdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  bfm:
+    build: ./services/bfm
+    container_name: bfm
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8000:4567"
+    depends_on:
+      - db
+    volumes:
+      - ./services/bfm:/workspace
+    environment:
+      - DATABASE_URL=postgres://dev:dev@db/devdb
+
+  service1:
+    build: ./services/service1
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8001:4567"
+    depends_on: [db]
+    volumes: [./services/service1:/workspace]
+
+
+  service2:
+    build: ./services/service2
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8002:4567"
+    depends_on: [db]
+    volumes: [./services/service2:/workspace]
+
+
+  service3:
+    build: ./services/service3
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8003:4567"
+    depends_on: [db]
+    volumes: [./services/service3:/workspace]
+
+
+  service4:
+    build: ./services/service4
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8004:4567"
+    depends_on: [db]
+    volumes: [./services/service4:/workspace]
+
+
+  service5:
+    build: ./services/service5
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8005:4567"
+    depends_on: [db]
+    volumes: [./services/service5:/workspace]
+
+
+  service6:
+    build: ./services/service6
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8006:4567"
+    depends_on: [db]
+    volumes: [./services/service6:/workspace]
+
+
+  service7:
+    build: ./services/service7
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8007:4567"
+    depends_on: [db]
+    volumes: [./services/service7:/workspace]
+
+
+  service8:
+    build: ./services/service8
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8008:4567"
+    depends_on: [db]
+    volumes: [./services/service8:/workspace]
+
+
+  service9:
+    build: ./services/service9
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8009:4567"
+    depends_on: [db]
+    volumes: [./services/service9:/workspace]
+
+
+  service10:
+    build: ./services/service10
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "8010:4567"
+    depends_on: [db]
+    volumes: [./services/service10:/workspace]
+
+volumes:
+  db_data:
