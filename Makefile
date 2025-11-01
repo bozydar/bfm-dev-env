@@ -15,7 +15,7 @@ ps:
 	docker compose ps
 
 tests:
-	docker compose --profile test run --rm tests
+	docker compose -f docker-compose.test.yml run --rm tests
 
 db-recreate: db-drop db-create
 

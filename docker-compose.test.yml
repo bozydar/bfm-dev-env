@@ -16,7 +16,7 @@ services:
 
   bfm:
     build: ./services/bfm
-    command: ruby app.rb -o 0.0.0.0 -e development
+    command: ruby app.rb -o 0.0.0.0
     ports:
       - "8000:4567"
     depends_on:
@@ -29,7 +29,7 @@ services:
     volumes:
       - ./services/bfm:/workspace
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db/bfm_development
+      - DATABASE_URL=postgres://postgres:postgres@db/bfm_test
 
   service1:
     build: ./services/service1
@@ -48,7 +48,17 @@ services:
     depends_on: [ db ]
     volumes: [ ./services/service2:/workspace ]
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db/service2_development
+      - DATABASE_URL=postgres://postgres:postgres@db/service2_test
+
+  tests:
+    build: ./tests
+    depends_on:
+      - bfm
+      - db
+    volumes: [ ./tests:/workspace ]
+    environment:
+      - BFM_DATABASE_URL=postgres://postgres:postgres@db/bfm_test
+      - SERVICE2_DATABASE_URL=postgres://postgres:postgres@db/service2_test
 
 # TODO:
 # 1. add environments for each service
