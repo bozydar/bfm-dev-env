@@ -50,12 +50,12 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db/service2_test
 
-  tests:
-    build: ./tests
+  test:
+    build: ./test
     depends_on:
       - bfm
       - db
-    volumes: [ ./tests:/workspace ]
+    volumes: [ ./test:/workspace ]
     environment:
       - BFM_DATABASE_URL=postgres://postgres:postgres@db/bfm_test
       - SERVICE2_DATABASE_URL=postgres://postgres:postgres@db/service2_test

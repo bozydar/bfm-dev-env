@@ -1,4 +1,4 @@
-.PHONY: tests
+.PHONY: test
 
 setup: db-drop rebuild up
 
@@ -14,8 +14,8 @@ rebuild:
 ps:
 	docker compose ps
 
-tests:
-	docker compose -f docker-compose.test.yml run --rm tests
+test:
+	docker compose -f docker-compose.test.yml run --rm test
 
 db-recreate: db-drop db-create
 
