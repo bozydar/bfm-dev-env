@@ -20,9 +20,12 @@ services:
     ports:
       - "8000:4567"
     depends_on:
-      - db
-      - service1
-      - service2
+      db:
+        condition: service_healthy
+      service1:
+        condition: service_started
+      service2:
+        condition: service_started
     volumes:
       - ./services/bfm:/workspace
     environment:
