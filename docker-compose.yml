@@ -44,3 +44,10 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db/service2_development
 
+  tests:
+    build: ./tests
+    depends_on:
+      - bfm
+      - db
+    volumes: [ ./tests:/workspace ]
+

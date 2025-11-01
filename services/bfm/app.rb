@@ -4,13 +4,15 @@ require 'pg'
 require "net/http"
 require "uri"
 
+set :host_authorization, { allow_if: -> (*) { true } }
+
 get '/' do
   db_value = access_db
   service1_value = access_service1
   service2_value = access_service2
   <<~END
   ====== BFM ======
-  Hello from BFM monolith.
+  Hello from BFM.
   DB says: #{db_value}. 
   ====== service1 ======
   #{service1_value} 
@@ -35,8 +37,6 @@ end
 def access_service1
   uri = URI("http://service1:4567/")
   res = Net::HTTP.get_response(uri)
-  print("-----------------")
-  print(res)
   if res.is_a?(Net::HTTPSuccess)
     content_type :json
     res.body
