@@ -1,0 +1,1 @@
+INSERT INTO info (name) VALUES ('hello from service2_development db');

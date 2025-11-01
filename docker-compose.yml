@@ -9,7 +9,7 @@ services:
     volumes:
       - ./local/db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 3s
       retries: 10
       start_period: 5s
@@ -58,3 +58,6 @@ services:
       - db
     volumes: [ ./tests:/workspace ]
 
+# TODO:
+# 1. add environments for each service
+# 2. add templates
