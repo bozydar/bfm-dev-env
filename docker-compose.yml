@@ -8,6 +8,11 @@ services:
       - "5432:5432"
     volumes:
       - ./local/db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "PGPASSWORD=$POSTGRES_PASSWORD pg_isready -U $POSTGRES_USER" ]
+      interval: 3s
+      retries: 5
+      start_period: 5s
 
   bfm:
     build: ./services/bfm
