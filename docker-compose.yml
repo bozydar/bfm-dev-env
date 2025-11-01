@@ -45,6 +45,7 @@ services:
       - DATABASE_URL=postgres://postgres:postgres@db/service2_development
 
   tests:
+    profiles: ["test"]
     build: ./tests
     depends_on:
       - bfm

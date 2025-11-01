@@ -1,5 +1,5 @@
 up:
-	docker compose up -d
+	docker compose up
 
 down:
 	docker compose down
@@ -9,6 +9,9 @@ rebuild:
 
 ps:
 	docker compose ps
+
+integration-tests:
+	docker compose --profile test run --rm tests
 
 db-recreate: db-drop db-create
 	#
