@@ -1,1 +1,0 @@
-INSERT INTO info (name) VALUES ('hello from db');
