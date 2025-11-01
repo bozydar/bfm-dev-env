@@ -22,5 +22,4 @@ jobs:
           docker compose --profile test up --build --abort-on-container-exit
           
       - name: Tear down
-        if: always()
         run: docker compose --profile test down -v

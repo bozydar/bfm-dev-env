@@ -1,3 +1,5 @@
+.PHONY: tests
+
 setup: db-drop rebuild up
 
 up:
@@ -12,7 +14,7 @@ rebuild:
 ps:
 	docker compose ps
 
-integration-tests:
+tests:
 	docker compose --profile test run --rm tests
 
 db-recreate: db-drop db-create
