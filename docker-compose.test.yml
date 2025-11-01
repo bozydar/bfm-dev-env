@@ -59,7 +59,3 @@ services:
     environment:
       - BFM_DATABASE_URL=postgres://postgres:postgres@db/bfm_test
       - SERVICE2_DATABASE_URL=postgres://postgres:postgres@db/service2_test
-
-# TODO:
-# 1. add environments for each service
-# 2. add templates
