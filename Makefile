@@ -1,6 +1,6 @@
 .PHONY: test
 
-setup: db-drop rebuild up
+setup: rebuild db-drop db-create
 
 up:
 	docker compose up
