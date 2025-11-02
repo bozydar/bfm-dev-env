@@ -30,6 +30,52 @@ make db-recreate
 make test
 ```
 
+## Architecture
+
+The solution manages two environments `development` and `test`. The `development` environment is used for local development and the `test` environment is used for local integration tes and CI.
+
+### Development environment
+
+In this environment developers can modify the code on their local disks. The containers don't need to be rebuilt because the volumes are mapped.
+
+**Dependency diagram loosely representing the `docker-compose.yml` file.**
+
+```mermaid
+graph TD
+    subgraph DBs [db]
+        BFM_DB[(bfm_development)]
+        Service2_DB[(service2_development)]
+    end
+
+    BFM[bfm] --> Service1[service1]
+    BFM --> Service2[service2]
+    BFM --> BFM_DB
+    Service2 --> Service2_DB
+```
+
+### Test environment
+
+This environment is designed for integration tests. It includes additional container mapped to the `./test` directory.
+This environment is used by CI as well. 
+
+**Dependency diagram loosely representing the `docker-compose.test.yml` file.**
+```mermaid
+graph TD
+    subgraph DBs [db]
+        BFM_DB[(bfm_test)]
+        Service2_DB[(service2_test)]
+    end
+
+    BFM[bfm] --> Service1[service1]
+    BFM --> Service2[service2]
+    BFM --> BFM_DB
+    Service2 --> Service2_DB
+    
+    Test[test] -.-> BFM
+    Test -.-> BFM_DB
+    Test -.-> Service2_DB
+```
+
 # Answers to questions
 
 ## Problem framing
@@ -84,7 +130,7 @@ I used following tools to solve the problem:
   * **Reasoning**: It is free for small usage.
 * DB project keeps all the SQL scripts in one directory.
   * **Tradeoff**: My gut feeling is that the DB scripts should be kept separately in the services because otherwise it suggests that we can use a common database for services what is a bad practice
-  * **Reasoning**: It was easier for me to do it this way.
+  * **Reasoning**: DB management should be handled by a separate tool like ActiveMigration or Entity Framework and the way how it will be managed deeply depends on the selected tool.
 * DB data is kept in `local/db` directory
   * **Tradeoff**: Somebody may push it to the repo by chance
   * **Reasoning**: It is not a big deal moreover one can easy switch change the data without running any dump or restore
