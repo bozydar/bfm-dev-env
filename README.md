@@ -30,9 +30,45 @@ make db-recreate
 make test
 ```
 
-## Architecture
+## Solution description
 
-The solution manages two environments `development` and `test`. The `development` environment is used for local development and the `test` environment is used for local integration tes and CI.
+Main idea behind my solution is to keep DB, Integration tests, and working code in the separate containers. Moreover all the stack can be run in two environments: `development` and `test`. The `development` environment is used for local development and the `test` environment is used for local integration tests and CI.
+
+### DB
+
+DB is a separate container. It is a Postgres database. The DB is managed by Docker. It contains `sql` directory containing files used to initialize DBs inside the Postgres server. E.g. `bfm_init.sql` looks like this:
+
+```sql
+\c postgres
+
+create database bfm_development;
+\c bfm_development
+\ir ./include/bfm_schema.sql
+\ir ./include/bfm_seed.sql
+
+create database bfm_test;
+\c bfm_test
+\ir ./include/bfm_schema.sql
+```
+It creates two databases `bfm_development` and `bfm_test`. I've separated both databases because the first one is relatively persistent and used during the development process and the second one is purged during the integration tests.
+`include` directory contains sqls which create the schema for both databases and seed the development database.
+
+The db scripts are executed when the container is run but only if the `local/db` directory is empty. This directory is mapped to the database data directory inside the container. 
+
+If you need to add another DB you can add another SQL script and follow the existing pattern.
+
+### Test
+
+Test container includes RSpec scripts which operates on other containers. It allows them to seed the data, call the BFM, and check the expected response. There is no problem to connect the test container to the other service containers if needed.
+This container is defined in the `docker-compose.test.yml` file. 
+
+### BFM
+
+This container represents the monolith. It depends on the other components (except the `test` environment where Test depends on it). It is a Rails application.
+
+### Service1 and Service2
+
+They represent the microservices. Service2 can call their own DB.
 
 ### Development environment
 
