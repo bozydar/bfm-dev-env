@@ -1,3 +1,37 @@
+## Table of Contents
+
+1. [Installation](#installation)
+    - [Clone the repository](#installation)
+    - [Setup environments](#installation)
+    - [Run the stack](#installation)
+    - [Access the application](#installation)
+
+2. [Additional Commands](#additional-commands)
+    - [Stop the stack](#stop-the-stack)
+    - [Rebuild DB](#rebuild-db)
+    - [Run integration tests](#run-integration-tests)
+
+3. [Solution Description](#solution-description)
+    - [DB](#db)
+    - [Test](#test)
+    - [BFM](#bfm)
+    - [Service1 and Service2](#service1-and-service2)
+    - [Development Environment](#development-environment)
+    - [Test Environment](#test-environment)
+
+4. [Answers to Questions](#answers-to-questions)
+    - [Problem Framing](#problem-framing)
+        - [What are the main pain points?](#what-are-the-main-pain-points)
+        - [Who are the users, and what are their needs?](#who-are-the-users-and-what-are-their-needs)
+    - [Proposed Solution](#proposed-solution)
+        - [Tools or approaches you'd introduce or build](#tools-or-approaches-youd-introduce-or-build)
+        - [Tradeoffs and reasoning](#tradeoffs-and-reasoning)
+    - [Measurement & Impact](#measurement--impact)
+        - [How would you measure success?](#how-would-you-measure-success)
+        - [How would you gather feedback?](#how-would-you-gather-feedback)
+
+5. [Ways to Improve](#ways-to-improve)
+
 ## Installation
 1. Clone the repo
    ```bash
