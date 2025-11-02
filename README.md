@@ -183,3 +183,13 @@ I've used the following tools and approaches to implement the solution:
 * Jira tickets created for the solution.
 * Polls every 3 months.
 * Competition for the best idea for a new feature with a prize.
+
+# Ways to improve
+* Templates for the microservices
+  * It modifies the `docker-compose*.yml` files.
+  * Adds the DB definitions
+  * Generates test scaffold
+* Choosing the DB versioning system
+* Moving from Makefile to a legit CLI application
+* Automatic deployment to the staging servers
+* DB dump/restore commands for easier debugging staging or prod issues
